@@ -1,12 +1,16 @@
 from typing import List
 import hashlib
 
+# We've been talking about a Merkle Tree. Here's a very very basic example
+# constructed with the inspiration of several internet sources.
+# This example uses sha256 for the hashes in the tree. 
+
 class Node:
     def __init__(self, left, right, value: str, cert:str)-> None:
         self.left: Node = left
         self.right: Node = right
-        self.value = value
-        self.cert = cert
+        self.value = value  # The hash value of this node of the tree.
+        self.cert = cert    # If this node is a leaf, this is the 'certificate' data that was hashed.
 
     @staticmethod
     def sha256(val: str)-> str:
@@ -56,3 +60,11 @@ mtree = MerkleTree(elems)
 print("Root of tree : " +str(mtree.getRootHash()))
 print("------")
 mtree.printTree()
+print("If we change anything in the tree, the root changes")
+elems = [ "Bob signed cert for gmail.com", "Alice signed cert for microsoft.com", "Paul signed cert for ualberta.ca", "Mallory signed cert for google.com" ]
+mtree = MerkleTree(elems)
+print("New Root of tree : " +str(mtree.getRootHash()))
+print("------")
+mtree.printTree()
+
+
