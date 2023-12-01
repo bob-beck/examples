@@ -1,9 +1,8 @@
-from typing import List
 import hashlib
 
-# We talked very briefly about cryptographic hash funcitons.
+# We talked very briefly about cryptographic hash functions.
 # sha256 is a very commonly used cryptographic hash function,
-# and we ususally display the hash value as a hex encoded
+# and we usually display the hash value as a hex encoded
 # sequence of bytes.
 
 # Python has an implmentation of sha256 in hashlib.
