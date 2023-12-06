@@ -55,16 +55,38 @@ class MerkleTree:
     def getRootHash(self)-> str:
         return self.root.value
 
+class MerkleTreeProof:
+    def __init__(self, root: str) -> None:
+        self.root = root
+
+    def isValueInTree(self, cert: str, intermediateHashes: List[str]) -> bool:
+        # This is unimplemented and always returns false.  You should try to
+        # implement this method. Don't forget to hash "cert"  to get the
+        # starting hash value.
+        return False;
+
+    def getRootHash(self)-> str:
+        return self.root
+
 elems = [ "Bob signed cert for google.com", "Alice signed cert for microsoft.com", "Paul signed cert for ualberta.ca", "Mallory signed cert for google.com" ]
 mtree = MerkleTree(elems)
 print("Root of tree : " +str(mtree.getRootHash()))
 print("------")
 mtree.printTree()
+
 print("If we change anything in the tree, the root changes")
 elems = [ "Bob signed cert for gmail.com", "Alice signed cert for microsoft.com", "Paul signed cert for ualberta.ca", "Mallory signed cert for google.com" ]
-mtree = MerkleTree(elems)
-print("New Root of tree : " +str(mtree.getRootHash()))
+mtree2 = MerkleTree(elems)
+print("New Root of tree : " +str(mtree2.getRootHash()))
 print("------")
-mtree.printTree()
+mtree2.printTree()
 
-
+print("------")
+intermediates = [ "16bffac11115e3bd11a9ae95832edcabfa9d967ddf9524243b388ae87574c09b", "05a80af53889c59121a94054804df1320606b1c48baac7cce69473cda448b192", "9d2ef4878fa1e4d60b52a1a1bac7ae4bdfd9ef44dc931ddde7a09a7ff256764f" ]
+proof1 = MerkleTreeProof(str(mtree.getRootHash()))
+cert = "Bob signed cert for google.com"
+# The result below will be wrong until you fix isValueInTree above.
+if proof1.isValueInTree(cert, intermediates):
+    print("\"" + cert + "\"" + " is in the tree with root " + str(proof1.getRootHash()))
+else:
+    print("\"" + cert + "\"" + " is not in the tree with root " + str(proof1.getRootHash()))
